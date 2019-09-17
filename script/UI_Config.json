@@ -1,0 +1,595 @@
+{
+	"output_file": "settings.json",
+	"ImageScale": {
+		"type": "slider",
+		"value": 10,
+		"min": 5,
+		"max": 100,
+		"ticks": 1,
+		"label": "Image Scale",
+		"tooltip": "Default size is 300px. This is the scale of that.",
+		"group": "GENERAL"
+	},
+	"ItemModel": {
+		"type": "dropdown",
+		"value": "circle",
+		"items": [
+			"circle",
+			"rectangle"
+		],
+		"label": "Item Shape",
+		"tooltip": "The item shape that can change the way it bounces",
+		"group": "GENERAL"
+	},
+	"ScreenMap": {
+		"type": "dropdown",
+		"value": "none",
+		"items": [
+			"none",
+			"plunko",
+			"custom"
+		],
+		"label": "Screen Map",
+		"tooltip": "This adds a 'map' of items on the screen for items to bounce around against.",
+		"group": "GENERAL"
+	},
+	"MaxItems": {
+		"type": "slider",
+		"value": 100,
+		"min": 1,
+		"max": 500,
+		"ticks": 1,
+		"label": "Maximum Items Per Event",
+		"tooltip": "The maximum number of items that can be added per event, stricter than the percentage restrictions",
+		"group": "GENERAL"
+	},
+	"GlobalObjectTTL": {
+		"type": "slider",
+		"value": 0,
+		"min": 0,
+		"max": 600,
+		"ticks": 1,
+		"label": "Item Life Span (seconds)",
+		"tooltip": "The number of seconds before the item leaves. 0 = never removed. This is the global value, for any specific Life Spans that are set to 0.",
+		"group": "GENERAL"
+	},
+	"ScreenHeight": {
+		"type": "numberbox",
+		"label": "Screen Height (pixels)",
+		"value": 1080,
+		"tooltip": "Screen Width (pixels)",
+		"group": "GENERAL"
+	},
+	"ScreenWidth": {
+		"type": "numberbox",
+		"label": "Screen Width (pixels)",
+		"value": 1920,
+		"tooltip": "Screen Width (pixels)",
+		"group": "GENERAL"
+	},
+	"ClearAllItems": {
+		"type": "button",
+		"label": "Clear All Items",
+		"tooltip": "Remove all items from the canvas",
+		"function": "ClearAllItems",
+		"wsevent": "EVENT_NONE",
+		"group": "GENERAL"
+	},
+
+	"OpenOverlayInBrowser": {
+		"type": "button",
+		"label": "Open Overlay In Browser",
+		"tooltip": "Opens overlay in browser for testing",
+		"function": "OpenOverlayInBrowser",
+		"wsevent": "EVENT_NONE",
+		"group": "ADVANCED"
+	},
+	"DebugMap": {
+		"type": "checkbox",
+		"value": false,
+		"label": "Show Map Bodies",
+		"tooltip": "Will Show Map Bodies",
+		"group": "ADVANCED"
+	},
+	"HorizontalForce": {
+		"type": "slider",
+		"value": 1.5,
+		"min": 0,
+		"max": 20,
+		"ticks": 0.1,
+		"label": "Horizontal Force",
+		"tooltip": "",
+		"group": "ADVANCED"
+	},
+	"VerticalForce": {
+		"type": "slider",
+		"value": 1,
+		"min": 0,
+		"max": 20,
+		"ticks": 0.1,
+		"label": "Vertical Force",
+		"tooltip": "",
+		"group": "ADVANCED"
+	},
+	"ItemDensity": {
+		"type": "slider",
+		"value": 1,
+		"min": -100,
+		"max": 100,
+		"ticks": 1,
+		"label": "Item Density",
+		"tooltip": "Defines the density of the body, that is its mass per unit area.",
+		"group": "ADVANCED"
+	},
+	"ItemFriction": {
+		"type": "slider",
+		"value": 3,
+		"min": -20,
+		"max": 20,
+		"ticks": 0.1,
+		"label": "Item Friction",
+		"tooltip": "",
+		"group": "ADVANCED"
+	},
+	"ItemAirFriction": {
+		"type": "slider",
+		"value": 5,
+		"min": -20,
+		"max": 20,
+		"ticks": 0.1,
+		"label": "Item Air Friction",
+		"tooltip": "",
+		"group": "ADVANCED"
+	},
+	"ItemRestitution": {
+		"type": "slider",
+		"value": 70,
+		"min": -100,
+		"max": 100,
+		"ticks": 1,
+		"label": "Item Restitution",
+		"tooltip": "",
+		"group": "ADVANCED"
+	},
+	"EnableChat": {
+		"type": "checkbox",
+		"value": true,
+		"label": "Enable Chat",
+		"tooltip": "Add item if someone chats",
+		"group": "CHAT"
+	},
+	"ChatObjectTTL": {
+		"type": "slider",
+		"value": 0,
+		"min": 0,
+		"max": 600,
+		"ticks": 1,
+		"label": "Item Life Span (seconds)",
+		"tooltip": "If 0, will fall back to the global Item Life Span",
+		"group": "CHAT"
+	},
+	"UseGlobalChatCooldown": {
+		"type": "checkbox",
+		"value": true,
+		"label": "Use Global Chat Cooldown",
+		"tooltip": "This will apply cooldown if anyone chats, not based on a specific person.",
+		"group": "CHAT"
+	},
+	"ChatCooldown": {
+		"type": "slider",
+		"value": 0,
+		"min": 0,
+		"max": 120,
+		"ticks": 1,
+		"label": "Chat Cooldown (seconds)",
+		"tooltip": "The cooldown between each event before it will trigger another one",
+		"group": "CHAT"
+	},
+	"ChatMultiplier": {
+		"type": "slider",
+		"value": 1,
+		"min": 1,
+		"max": 100,
+		"ticks": 1,
+		"label": "Item Multiplier",
+		"tooltip": "Multiply the number of items for a chat event.",
+		"group": "CHAT"
+	},
+	"SendChatEvent": {
+		"type": "button",
+		"label": "Test Chat Event",
+		"tooltip": "Sends a test event to the overlay",
+		"function": "SendChatEvent",
+		"wsevent": "EVENT_NONE",
+		"group": "CHAT"
+	},
+	"EnableFollow": {
+		"type": "checkbox",
+		"value": true,
+		"label": "Enable Follows",
+		"tooltip": "Add item if someone follows",
+		"group": "FOLLOWS"
+	},
+	"FollowObjectTTL": {
+		"type": "slider",
+		"value": 0,
+		"min": 0,
+		"max": 600,
+		"ticks": 1,
+		"label": "Item Life Span (seconds)",
+		"tooltip": "If 0, will fall back to the global Item Life Span",
+		"group": "FOLLOWS"
+	},
+	"FollowCooldown": {
+		"type": "slider",
+		"value": 0,
+		"min": 0,
+		"max": 120,
+		"ticks": 1,
+		"label": "Cooldown (seconds)",
+		"tooltip": "The cooldown between each event before it will trigger another one",
+		"group": "FOLLOWS"
+	},
+	"FollowMultiplier": {
+		"type": "slider",
+		"value": 1,
+		"min": 1,
+		"max": 100,
+		"ticks": 1,
+		"label": "Item Multiplier",
+		"tooltip": "Multiply the number of items for a follow event.",
+		"group": "FOLLOWS"
+	},
+	"SendTwitchFollowEvent": {
+		"type": "button",
+		"label": "Test TWITCH Follow Event",
+		"tooltip": "Sends a test event to the overlay",
+		"function": "SendTwitchFollowEvent",
+		"wsevent": "EVENT_NONE",
+		"group": "FOLLOWS"
+	},
+	"EnableDonation": {
+		"type": "checkbox",
+		"value": true,
+		"label": "Enable Donation",
+		"tooltip": "Add item if someone donates",
+		"group": "DONATIONS"
+	},
+	"DonationObjectTTL": {
+		"type": "slider",
+		"value": 0,
+		"min": 0,
+		"max": 600,
+		"ticks": 1,
+		"label": "Item Life Span (seconds)",
+		"tooltip": "If 0, will fall back to the global Item Life Span",
+		"group": "DONATIONS"
+	},
+	"DonationCooldown": {
+		"type": "slider",
+		"value": 0,
+		"min": 0,
+		"max": 120,
+		"ticks": 1,
+		"label": "Cooldown (seconds)",
+		"tooltip": "The cooldown between each event before it will trigger another one",
+		"group": "DONATIONS"
+	},
+	"DonationMinimum": {
+		"type": "slider",
+		"value": 1,
+		"min": 1,
+		"max": 100,
+		"ticks": 1,
+		"label": "Donation Minimum",
+		"tooltip": "The minimum number of dollars they need to donate for this to add",
+		"group": "DONATIONS"
+	},
+	"DonationMultiplier": {
+		"type": "slider",
+		"value": 1,
+		"min": 1,
+		"max": 100,
+		"ticks": 1,
+		"label": "Item Multiplier",
+		"tooltip": "Multiply the number of items for a donation event.",
+		"group": "DONATIONS"
+	},
+	"DonationPercent": {
+		"type": "slider",
+		"value": 100,
+		"min": 1,
+		"max": 100,
+		"ticks": 1,
+		"label": "Donation Percentage",
+		"tooltip": "The percentage of items to add based on donation dollars. Minimum will be 1 item.",
+		"group": "DONATIONS"
+	},
+	"SendDonationEvent": {
+		"type": "button",
+		"label": "Test STREAMLABS Donation Event",
+		"tooltip": "Sends a test event to the overlay",
+		"function": "SendDonationEvent",
+		"wsevent": "EVENT_NONE",
+		"group": "DONATIONS"
+	},
+	"EnableSubscribe": {
+		"type": "checkbox",
+		"value": true,
+		"label": "Enable Subscriber",
+		"tooltip": "Add item if someone subscribes",
+		"group": "SUBSCRIPTIONS"
+	},
+	"SubscriptionObjectTTL": {
+		"type": "slider",
+		"value": 0,
+		"min": 0,
+		"max": 600,
+		"ticks": 1,
+		"label": "Item Life Span (seconds)",
+		"tooltip": "If 0, will fall back to the global Item Life Span",
+		"group": "SUBSCRIPTIONS"
+	},
+	"SubscriptionCooldown": {
+		"type": "slider",
+		"value": 0,
+		"min": 0,
+		"max": 120,
+		"ticks": 1,
+		"label": "Cooldown (seconds)",
+		"tooltip": "The cooldown between each event before it will trigger another one",
+		"group": "SUBSCRIPTIONS"
+	},
+	"SubscriptionMinimum": {
+		"type": "slider",
+		"value": 1,
+		"min": 1,
+		"max": 100,
+		"ticks": 1,
+		"label": "Months Minimum",
+		"tooltip": "The minimum number of months they need to be a subscriber for this to add",
+		"group": "SUBSCRIPTIONS"
+	},
+	"SubscriptionGiftedMinimum": {
+		"type": "slider",
+		"value": 1,
+		"min": 1,
+		"max": 100,
+		"ticks": 1,
+		"label": "Gifted Minimum",
+		"tooltip": "The minimum number of gifted subs for this to add",
+		"group": "SUBSCRIPTIONS"
+	},
+	"SubscriptionMultiplier": {
+		"type": "slider",
+		"value": 1,
+		"min": 1,
+		"max": 100,
+		"ticks": 1,
+		"label": "Item Multiplier",
+		"tooltip": "Multiply the number of items for a subscription event.",
+		"group": "SUBSCRIPTIONS"
+	},
+	"SubscriptionPercent": {
+		"type": "slider",
+		"value": 100,
+		"min": 1,
+		"max": 100,
+		"ticks": 1,
+		"label": "Subscription Percentage",
+		"tooltip": "The percentage of items to add based on months subscribed. Minimum will be 1 item.",
+		"group": "SUBSCRIPTIONS"
+	},
+	"SendSubscriptionEvent": {
+		"type": "button",
+		"label": "Test Sub/Resub Event",
+		"tooltip": "Sends a test event to the overlay",
+		"function": "SendSubscriptionEvent",
+		"wsevent": "EVENT_NONE",
+		"group": "SUBSCRIPTIONS"
+	},
+	"SendGiftSubscriptionEvent": {
+		"type": "button",
+		"label": "Test Gifted Sub Event",
+		"tooltip": "Sends a test event to the overlay",
+		"function": "SendGiftSubscriptionEvent",
+		"wsevent": "EVENT_NONE",
+		"group": "SUBSCRIPTIONS"
+	},
+	"SendCommunityGiftSubscriptionEvent": {
+		"type": "button",
+		"label": "Test Community Gifted Event",
+		"tooltip": "Sends a test event to the overlay",
+		"function": "SendCommunityGiftSubscriptionEvent",
+		"wsevent": "EVENT_NONE",
+		"group": "SUBSCRIPTIONS"
+	},
+	"EnableHost": {
+		"type": "checkbox",
+		"value": true,
+		"label": "Enable Host / Raid",
+		"tooltip": "Add item if someone hosts / raids",
+		"group": "HOST / RAID"
+	},
+	"HostObjectTTL": {
+		"type": "slider",
+		"value": 0,
+		"min": 0,
+		"max": 600,
+		"ticks": 1,
+		"label": "Item Life Span (seconds)",
+		"tooltip": "If 0, will fall back to the global Item Life Span",
+		"group": "HOST / RAID"
+	},
+	"HostMinimum": {
+		"type": "slider",
+		"value": 1,
+		"min": 1,
+		"max": 5000,
+		"ticks": 1,
+		"label": "Viewer Minimum",
+		"tooltip": "The minimum number of viewers for this to add item for a host / raid",
+		"group": "HOST / RAID"
+	},
+	"HostCooldown": {
+		"type": "slider",
+		"value": 0,
+		"min": 0,
+		"max": 120,
+		"ticks": 1,
+		"label": "Cooldown (seconds)",
+		"tooltip": "The cooldown between each event before it will trigger another one",
+		"group": "HOST / RAID"
+	},
+	"HostMultiplier": {
+		"type": "slider",
+		"value": 1,
+		"min": 1,
+		"max": 100,
+		"ticks": 1,
+		"label": "Item Multiplier",
+		"tooltip": "Multiply the number of items for a host / raid event.",
+		"group": "HOST / RAID"
+	},
+	"HostPercent": {
+		"type": "slider",
+		"value": 100,
+		"min": 1,
+		"max": 100,
+		"ticks": 1,
+		"label": "Host / Raid Percentage",
+		"tooltip": "The percentage of items to viewers to add. Minimum will be 1 item.",
+		"group": "HOST / RAID"
+	},
+	"SendHostEvent": {
+		"type": "button",
+		"label": "Test TWITCH Host / Raid Event",
+		"tooltip": "Sends a test event to the overlay",
+		"function": "SendHostEvent",
+		"wsevent": "EVENT_NONE",
+		"group": "HOST / RAID"
+	},
+	"EnableCheer": {
+		"type": "checkbox",
+		"value": true,
+		"label": "Enable Cheer",
+		"tooltip": "Add items if someone cheers bits",
+		"group": "BITS / CHEER"
+	},
+	"CheerObjectTTL": {
+		"type": "slider",
+		"value": 0,
+		"min": 0,
+		"max": 600,
+		"ticks": 1,
+		"label": "Item Life Span (seconds)",
+		"tooltip": "If 0, will fall back to the global Item Life Span",
+		"group": "BITS / CHEER"
+	},
+	"CheerCooldown": {
+		"type": "slider",
+		"value": 0,
+		"min": 0,
+		"max": 120,
+		"ticks": 1,
+		"label": "Cooldown (seconds)",
+		"tooltip": "The cooldown between each event before it will trigger another one",
+		"group": "BITS / CHEER"
+	},
+	"CheerMinimum": {
+		"type": "slider",
+		"value": 100,
+		"min": 1,
+		"max": 5000,
+		"ticks": 1,
+		"label": "Cheer Minimum",
+		"tooltip": "The minimum number of bits for this to add item for a cheer",
+		"group": "BITS / CHEER"
+	},
+	"CheerMultiplier": {
+		"type": "slider",
+		"value": 1,
+		"min": 1,
+		"max": 100,
+		"ticks": 1,
+		"label": "Item Multiplier",
+		"tooltip": "Multiply the number of items for a cheer event.",
+		"group": "BITS / CHEER"
+	},
+	"CheerPercent": {
+		"type": "slider",
+		"value": 100,
+		"min": 1,
+		"max": 100,
+		"ticks": 1,
+		"label": "Cheer Percentage",
+		"tooltip": "The percentage of items to add based on bits cheered. Minimum will be 1 item.",
+		"group": "BITS / CHEER"
+	},
+	"SendTwitchCheerEvent": {
+		"type": "button",
+		"label": "Test TWITCH Cheer Event",
+		"tooltip": "Sends a test event to the overlay",
+		"function": "SendTwitchCheerEvent",
+		"wsevent": "EVENT_NONE",
+		"group": "BITS / CHEER"
+	},
+	"StreamlabsToken": {
+		"type": "textbox",
+		"label": "Streamlabs Socket Token",
+		"value": "",
+		"tooltip": "The Streamlabs Socket Token. This can be found on the website via the left-hand side menu -> API Settings -> API Tokens.",
+		"group": "API KEYS"
+	},
+	"OpenSLAPISettingsLink": {
+		"type": "button",
+		"label": "Get your Socket Token here",
+		"tooltip": "Click here to go to the Streamlabs API settings page",
+		"function": "OpenSLAPISettingsLink",
+		"wsevent": "EVENT_NONE",
+		"group": "API KEYS"
+	},
+	"TwitchClientId": {
+		"type": "textbox",
+		"label": "Twitch Client-ID",
+		"value": "",
+		"tooltip": "The Twitch CLIENT-ID. Register an application and use the Client-ID here.",
+		"group": "API KEYS"
+	},
+	"OpenTwitchClientIdLink": {
+		"type": "button",
+		"label": "Get your Twitch Client ID Here",
+		"tooltip": "Click here to register for your Twitch Client-ID",
+		"function": "OpenTwitchClientIdLink",
+		"wsevent": "EVENT_NONE",
+		"group": "API KEYS"
+	},
+	"OpenDonateLink": {
+		"type": "button",
+		"label": "Donate",
+		"tooltip": "Donate to support development",
+		"function": "OpenDonateLink",
+		"wsevent": "EVENT_NONE"
+	},
+	"OpenFollowOnTwitchLink": {
+		"type": "button",
+		"label": "Follow Me On Twitch",
+		"tooltip": "Get Medal",
+		"function": "OpenFollowOnTwitchLink",
+		"wsevent": "EVENT_NONE"
+	},
+	"OpenReadMeLink": {
+		"type": "button",
+		"label": "Open ReadMe",
+		"tooltip": "Open ReadMe file",
+		"function": "OpenReadMeLink",
+		"wsevent": "EVENT_NONE"
+	},
+	"OpenScriptUpdater": {
+		"type": "button",
+		"label": "Check For Updates",
+		"tooltip": "Check for updates",
+		"function": "OpenScriptUpdater",
+		"wsevent": "EVENT_NONE"
+	}
+}
