@@ -127,6 +127,7 @@ function connectWebsocket() {
 				window.settings = eventData;
 				if (validateInit()) {
 					initializeUI();
+					WorldCanvas.loadMap(settings.ScreenMap);
 				}
 				break;
 			default:

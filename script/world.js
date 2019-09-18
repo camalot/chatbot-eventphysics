@@ -7,16 +7,15 @@ WorldCanvas.maps = {
 	plunko: function (res) {
 		var fillColor = settings.DebugMap ? "#ff0000" : "transparent";
 		var items = [];
-		var size = 5;
+		var size = 10;
 		var maxFitX = (res.width / (size * 2));
-		var maxPerRow = /*((Math.random() * (maxFitX/4)) + 2)*/ 10;
+		var maxPerRow = /*((Math.random() * (maxFitX/4)) + 2)*/ 15;
 		var maxFixY = (res.height / (size * 2));
-		var maxPerCol = /*((Math.random() * (maxFixY)) + 2)*/ 5;
+		var maxPerCol = /*((Math.random() * (maxFixY)) + 2)*/ 10;
 		for (var w = 0; w < maxPerRow; ++w) {
 			var px = (Math.random() * res.width) + size;
 			for (var h = 0; h < maxPerCol; ++h) {
 				var py = (Math.random() * res.width) + size;
-
 				items.push(WorldCanvas.Bodies.circle(px, py, size, { isStatic: true, group: 'map', name: 'map', render: { fillStyle: fillColor } }));
 			}
 		}
@@ -40,6 +39,8 @@ WorldCanvas.sprites = function () {
 	WorldCanvas.Bodies = Matter.Bodies;
 	WorldCanvas.Body = Matter.Body;
 	WorldCanvas.active = {};
+	WorldCanvas.Map = null;
+	WorldCanvas.ItemsContainer = null;
 	// create engine
 	WorldCanvas.active.engine = WorldCanvas.Engine.create();
 	WorldCanvas.active.world = WorldCanvas.active.engine.world;
@@ -65,13 +66,23 @@ WorldCanvas.sprites = function () {
 	var rightWall = WorldCanvas.Bodies.rectangle(screenRes.width + 25, screenRes.height / 2, 50, screenRes.height + 2 * 10, { isStatic: true, render: { fillStyle: 'transparent' } });
 	var bottomWall = WorldCanvas.Bodies.rectangle(screenRes.width / 2, screenRes.height + 25, screenRes.width + 2 * 10, 50, { isStatic: true, render: { fillStyle: 'transparent' } });
 
+	WorldCanvas.Map = WorldCanvas.Composite.create({
+		id: "map",
+		bodies: []
+	});
+
+	WorldCanvas.ItemsContainer = WorldCanvas.Composite.create({
+		id: "itemsContainer",
+		bodies: []
+	});
+
+
 	// these static walls will not be rendered in this sprites example, see options
 	WorldCanvas.World.add(WorldCanvas.active.world, [leftWall, rightWall, bottomWall]);
-	console.log(`Loading Map: ${settings.ScreenMap}`);
-	var mapItems = WorldCanvas.maps[settings.ScreenMap](screenRes);
-	console.log(mapItems);
-	WorldCanvas.World.add(WorldCanvas.active.world, mapItems);
+	WorldCanvas.World.add(WorldCanvas.active.world, WorldCanvas.Map);
+	WorldCanvas.World.add(WorldCanvas.active.world, WorldCanvas.ItemsContainer);
 
+	WorldCanvas.loadMap(settings.ScreenMap);
 	// add mouse control
 	WorldCanvas.active.mouse = WorldCanvas.Mouse.create(WorldCanvas.active.render.canvas),
 		WorldCanvas.active.mouseConstraint = WorldCanvas.MouseConstraint.create(WorldCanvas.active.engine, {
@@ -105,10 +116,19 @@ WorldCanvas.sprites = function () {
 
 };
 
+WorldCanvas.loadMap = function (map) {
+	var screenRes = {
+		width: settings.ScreenWidth || 1920,
+		height: settings.ScreenHeight || 1080
+	};
+	WorldCanvas.Composite.clear(WorldCanvas.Map, false, true);
+
+	var mapItems = WorldCanvas.maps[map](screenRes);
+	WorldCanvas.Composite.add(WorldCanvas.Map, mapItems);
+};
 
 WorldCanvas.clear = function () {
-	console.log("CLEAR ALL");
-	WorldCanvas.Composite.clear(WorldCanvas.active.world, true, true);
+	WorldCanvas.Composite.clear(WorldCanvas.ItemsContainer, true, true);
 };
 
 WorldCanvas.addObject = function (options) {
@@ -140,7 +160,7 @@ WorldCanvas.addObject = function (options) {
 			}
 		};
 		var item = null;
-		if(model === "circle") {
+		if (model === "circle") {
 			item = WorldCanvas.Bodies.circle(dropX, dropY, circleRadius, itemOptions);
 		} else {
 			item = WorldCanvas.Bodies.rectangle(dropX, dropY, rectBound, rectBound, itemOptions);
@@ -159,12 +179,12 @@ WorldCanvas.addObject = function (options) {
 		var ttl = options.ttl || 0;
 		if (ttl && ttl > 0) {
 			setTimeout(function (x) {
-				WorldCanvas.World.remove(WorldCanvas.active.world, x);
+				WorldCanvas.World.remove(WorldCanvas.ItemsContainer, x);
 			}, (ttl * 1000) + delay, item);
 		}
 		items.push(item);
 	}
-	WorldCanvas.World.add(WorldCanvas.active.world, items);
+	WorldCanvas.World.add(WorldCanvas.ItemsContainer, items);
 
 
 };

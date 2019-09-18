@@ -23,7 +23,7 @@ clr.AddReference("IronPython.Modules.dll")
 #---------------------------------------
 ScriptName = "EventPhysics Overlay"
 Website = "https://github.com/camalot/chatbot-eventphysics"
-Description = ""
+Description = "An overlay that will rain down user icons for events that occur in your stream."
 Creator = "DarthMinos"
 Version = "1.0.0-snapshot"
 Repo = "camalot/chatbot-eventphysics"
@@ -135,8 +135,6 @@ class Settings(object):
 def SendWebsocketData(eventName, payload):
     dump = json.dumps(payload, default=JsonConverter)
     if dump != "null" and dump != "" and payload is not None and payload != "" and payload != "null":
-        Parent.Log(ScriptName, "Trigger Event: " + eventName)
-        Parent.Log(ScriptName, "Payload: " + dump)
         Parent.BroadcastWsEvent(eventName, dump)
     return
 def SendClearItemsEvent():
@@ -198,7 +196,6 @@ def Unload():
     return
 
 def ScriptToggled(state):
-    Parent.Log(ScriptName, "State Changed: " + str(state))
     if state:
         Init()
     else:
@@ -255,10 +252,8 @@ def CreateHostPayload(data):
                 "Count": int(data.Raiders if hasattr(data, 'Raiders') else data.Viewers) * int(ScriptSettings.HostMultiplier),
                 "TTL": int(ScriptSettings.GlobalObjectTTL if ScriptSettings.HostObjectTTL == 0 else ScriptSettings.HostObjectTTL)
             }
-            Parent.Log(ScriptName, "Host: " + json.dumps(result))
             return result
         else:
-            Parent.Log(ScriptName, "DATA IS NULL")
             return None
     except Exception as e:
         Parent.Log(ScriptName, str(e))
@@ -380,7 +375,6 @@ def EventReceiverEvent(sender, args):
                 if ScriptSettings.EnableFollow:
                     cooldownName = ScriptName + "-follow"
                     cooldownTime = ScriptSettings.FollowCooldown
-                    # Parent.AddCooldown(ScriptName, ScriptName + "-follow", ScriptSettings.FollowCooldown)
                     eventPayload = CreateFollowPayload(message)
                     meetsMinimum = True
             elif (evntdata.Type == "subscription" or evntdata.Type == "resub") and evntdata.For == "twitch_account":
@@ -393,28 +387,24 @@ def EventReceiverEvent(sender, args):
                 if ScriptSettings.EnableSubscribe:
                     cooldownName = ScriptName + "-subscription"
                     cooldownTime = ScriptSettings.SubscriptionCooldown
-                    # Parent.AddCooldown(ScriptName, ScriptName + "-subscription", ScriptSettings.SubscriptionCooldown)
                     eventPayload = CreateTwitchMysterySubscriptionPayload(message)
                     meetsMinimum = eventPayload['Amount'] >= ScriptSettings.SubscriptionGiftedMinimum
             elif evntdata.Type == "bits":
                 if message.Amount >= ScriptSettings.CheerMinimum and ScriptSettings.EnableCheer:
                     cooldownName = ScriptName + "-cheer"
                     cooldownTime = ScriptSettings.CheerCooldown
-                    # Parent.AddCooldown(ScriptName, ScriptName + "-cheer", ScriptSettings.CheerCooldown)
                     eventPayload = CreateTwitchCheerPayload(message)
                     meetsMinimum = eventPayload['Amount'] >= ScriptSettings.CheerMinimum
             elif evntdata.Type == "host" or evntdata.Type == "raid":
                 if ScriptSettings.EnableHost:
                     cooldownName = ScriptName + "-host"
                     cooldownTime = ScriptSettings.HostCooldown
-                    # Parent.AddCooldown(ScriptName, ScriptName + "-host", ScriptSettings.HostCooldown)
                     eventPayload = CreateHostPayload(message)
                     meetsMinimum = eventPayload['Viewers'] >= ScriptSettings.HostMinimum
             elif evntdata.Type == "donation":
                 if ScriptSettings.EnableDonation:
                     cooldownName = ScriptName + "-donation"
                     cooldownTime = ScriptSettings.DonationCooldown
-                    # Parent.AddCooldown(ScriptName, ScriptName + "-donation", ScriptSettings.DonationCooldown)
                     eventPayload = CreateDonationPayload(message)
                     meetsMinimum = eventPayload['Amount'] >= ScriptSettings.DonationMinimum
 
@@ -422,8 +412,6 @@ def EventReceiverEvent(sender, args):
     isOnCooldown = Parent.IsOnCooldown(ScriptName, cooldownName)
     if eventPayload and not isOnCooldown and meetsMinimum:
         Parent.AddCooldown(ScriptName, cooldownName, cooldownTime)
-        Parent.Log(ScriptName, "type: " + evntdata.Type)
-        Parent.Log(ScriptName, "payload: " + json.dumps(eventPayload))
         SendEventMessageEvent({
             "For": evntdata.For,
             "Message": eventPayload,
@@ -439,7 +427,6 @@ def OpenScriptUpdater():
     currentDir = os.path.realpath(os.path.dirname(__file__))
     chatbotRoot = os.path.realpath(os.path.join(currentDir, "../../../"))
     libsDir = os.path.join(currentDir, "libs/updater")
-    Parent.Log(ScriptName, libsDir)
     try:
         src_files = os.listdir(libsDir)
         tempdir = tempfile.mkdtemp()
@@ -470,9 +457,7 @@ def OpenScriptUpdater():
                 "name": repoVals[1]
             }
         }
-        Parent.Log(ScriptName, updater)
         configJson = json.dumps(updaterConfig)
-        Parent.Log(ScriptName, configJson)
         with open(updaterConfigFile, "w+") as f:
             f.write(configJson)
         os.startfile(updater)
