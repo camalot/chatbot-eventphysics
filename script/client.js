@@ -179,11 +179,11 @@ function connectWebsocket() {
 				window.settings = eventData;
 				if (validateInit()) {
 					initializeUI();
-					if (settings.ScreenMap === "custom") {
-						WorldCanvas.loadCustomMap(settings.CustomMapName);
-					} else {
-						WorldCanvas.loadMap(settings.ScreenMap);
-					}
+					// if (settings.ScreenMap === "custom") {
+					// 	WorldCanvas.loadCustomMap(settings.CustomMapName);
+					// } else {
+					// 	WorldCanvas.loadMap(settings.ScreenMap);
+					// }
 				}
 				break;
 			default:
