@@ -1,4 +1,5 @@
 "use strict";
+var TWITCH_EMOTE_URL = "http://static-cdn.jtvnw.net/emoticons/v1/{EMOTE_ID}/3.0";
 
 function initializeUI() {
 	// $(":root")
@@ -62,6 +63,52 @@ function connectWebsocket() {
 				if (!eventData.Message) {
 					return;
 				}
+
+
+				switch (eventData.Type) {
+					case "chat":
+						if (settings.ChatEnableEmotes) {
+							for (var eid = 0; eid <= eventData.Message.Emotes.length; ++eid) {
+								var id = eventData.Message.Emotes[eid];
+								if (id) {
+									var url = TWITCH_EMOTE_URL.replace(/\{EMOTE_ID\}/gi, id + "");
+									var options = {
+										image: url,
+										count: (eventData.Message.EmoteCount || 1),
+										size: 112,
+										scale: (settings.ImageScale / 100) * 3.33,
+										max: settings.MaxItems,
+										ttl: eventData.Message.TTL || settings.GlobalObjectTTL || 0
+									};
+									WorldCanvas.addObject(options);
+								}
+							}
+						}
+						if (settings.ChatEnableEmoji) {
+							if (eventData.Message.Message) {
+								var n = $(`<div>${eventData.Message.Message}</div>`);
+								twemoji.parse(n.get(0), { size: 72, ext: ".png" });
+								var imgs = $("img.emoji", n);
+								var urls = [];
+								$.each(imgs, function (idx, item) {
+									var lu = $(item).attr("src");
+									console.log(lu);
+									var options = {
+										image: lu,
+										count: (eventData.Message.EmojiCount || 1),
+										size: 72,
+										scale: (settings.ImageScale / 100) * 4.5,
+										max: settings.MaxItems,
+										ttl: eventData.Message.TTL || settings.GlobalObjectTTL || 0
+									};
+									WorldCanvas.addObject(options);
+									urls.push(lu);
+								});
+							}
+						}
+						break;
+				}
+
 				var name = eventData.Message.FromId || eventData.Message.FromName || eventData.Message.Gifter || eventData.Message.Name
 				$.ajax({
 					type: 'GET',
@@ -97,6 +144,11 @@ function connectWebsocket() {
 								}
 								percent = settings.SubscriptionPercent || 100;
 								break;
+							case "chat":
+								if(!settings.EnableChat) {
+									return;
+								}
+								break;
 							default:
 								scale = settings.ImageScale;
 								percent = 100;
@@ -127,7 +179,11 @@ function connectWebsocket() {
 				window.settings = eventData;
 				if (validateInit()) {
 					initializeUI();
-					WorldCanvas.loadMap(settings.ScreenMap);
+					if (settings.ScreenMap === "custom") {
+						WorldCanvas.loadCustomMap(settings.CustomMapName);
+					} else {
+						WorldCanvas.loadMap(settings.ScreenMap);
+					}
 				}
 				break;
 			default:

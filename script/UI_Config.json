@@ -15,24 +15,32 @@
 		"value": "circle",
 		"items": [
 			"circle",
-			"rectangle"
+			"rectangle",
+			"random"
 		],
 		"label": "Item Shape",
 		"tooltip": "The item shape that can change the way it bounces",
 		"group": "GENERAL"
 	},
-	"ScreenMap": {
-		"type": "dropdown",
-		"value": "none",
-		"items": [
-			"none",
-			"plunko",
-			"custom"
-		],
-		"label": "Screen Map",
-		"tooltip": "This adds a 'map' of items on the screen for items to bounce around against.",
-		"group": "GENERAL"
-	},
+	// "ScreenMap": {
+	// 	"type": "dropdown",
+	// 	"value": "none",
+	// 	"items": [
+	// 		"none",
+	// 		"plunko",
+	// 		"custom"
+	// 	],
+	// 	"label": "Screen Map",
+	// 	"tooltip": "This adds a 'map' of items on the screen for items to bounce around against.",
+	// 	"group": "GENERAL"
+	// },
+	// "CustomMapName": {
+	// 	"type": "textbox",
+	// 	"label": "Custom Map Name",
+	// 	"value": "",
+	// 	"tooltip": "",
+	// 	"group": "GENERAL"
+	// },
 	"MaxItems": {
 		"type": "slider",
 		"value": 100,
@@ -75,7 +83,6 @@
 		"wsevent": "EVENT_NONE",
 		"group": "GENERAL"
 	},
-
 	"OpenOverlayInBrowser": {
 		"type": "button",
 		"label": "Open Overlay In Browser",
@@ -114,7 +121,7 @@
 	"ItemDensity": {
 		"type": "slider",
 		"value": 1,
-		"min": -100,
+		"min": 0,
 		"max": 100,
 		"ticks": 1,
 		"label": "Item Density",
@@ -195,11 +202,61 @@
 		"tooltip": "Multiply the number of items for a chat event.",
 		"group": "CHAT"
 	},
+	"ChatEnableEmotes": {
+		"type": "checkbox",
+		"value": true,
+		"label": "Enable Chat Emotes",
+		"tooltip": "",
+		"group": "CHAT"
+	},
+	"ChatEmoteMultiplier": {
+		"type": "slider",
+		"value": 1,
+		"min": 1,
+		"max": 100,
+		"ticks": 1,
+		"label": "Emote Multiplier",
+		"tooltip": "Multiply the number of items for a chat event.",
+		"group": "CHAT"
+	},
+	"ChatEnableEmoji": {
+		"type": "checkbox",
+		"value": true,
+		"label": "Enable Chat Emoji",
+		"tooltip": "",
+		"group": "CHAT"
+	},
+	"ChatEmojiMultiplier": {
+		"type": "slider",
+		"value": 1,
+		"min": 1,
+		"max": 100,
+		"ticks": 1,
+		"label": "Emoji Multiplier",
+		"tooltip": "Multiply the number of items for a chat event.",
+		"group": "CHAT"
+	},
 	"SendChatEvent": {
 		"type": "button",
-		"label": "Test Chat Event",
+		"label": "Test Chat Message Event",
 		"tooltip": "Sends a test event to the overlay",
 		"function": "SendChatEvent",
+		"wsevent": "EVENT_NONE",
+		"group": "CHAT"
+	},
+	"SendTestEmoteEvent": {
+		"type": "button",
+		"label": "Test Chat Emote Event",
+		"tooltip": "Sends a test event to the overlay",
+		"function": "SendTestEmoteEvent",
+		"wsevent": "EVENT_NONE",
+		"group": "CHAT"
+	},
+	"SendTestEmojiEvent": {
+		"type": "button",
+		"label": "Test Chat Emoji Event",
+		"tooltip": "Sends a test event to the overlay",
+		"function": "SendTestEmojiEvent",
 		"wsevent": "EVENT_NONE",
 		"group": "CHAT"
 	},

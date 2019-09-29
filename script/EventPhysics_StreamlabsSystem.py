@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 #---------------------------------------
 #   Import Libraries
 #---------------------------------------
@@ -68,6 +69,8 @@ class Settings(object):
             self.ImageScale = 10
             self.ItemModel = "circle"
             self.MaxItems = 100
+            self.ScreenMap = "none"
+            self.CustomMapName = ""
             self.HorizontalForce = 1.5
             self.VerticalForce = 1
             self.ItemDensity = 1
@@ -82,6 +85,12 @@ class Settings(object):
             self.UseGlobalChatCooldown = False
             self.ChatCooldown = 10
             self.ChatMultiplier = 1
+
+            self.ChatEnableEmotes = True
+            self.ChatEmoteMultiplier = 1
+
+            self.ChatEnableEmoji = True
+            self.ChatEmojiMultiplier = 1
 
             self.EnableFollow = True
             self.FollowObjectTTL = 0
@@ -124,8 +133,6 @@ class Settings(object):
             Parent.Log(ScriptName, str(e))
 
     def Reload(self, jsonData):
-        """ Reload settings from the user interface by given json data. """
-        Parent.Log(ScriptName, "Reload Settings")
         fileLoadedSettings = json.loads(jsonData, encoding="utf-8")
         self.__dict__.update(fileLoadedSettings)
 
@@ -212,7 +219,7 @@ def ReloadSettings(jsondata):
 
 
 def Execute(data):
-    if data.IsChatMessage() and ScriptSettings.EnableChat:
+    if data.IsChatMessage():
         cooldownUserName = ScriptName + "-" + data.UserName
         cooldownName = ScriptName + "-chat" if ScriptSettings.UseGlobalChatCooldown else cooldownUserName
 
@@ -232,10 +239,17 @@ def Tick():
     return
 def CreateChatPayload(data):
     if data:
+        # @badge-info=subscriber/17;badges=broadcaster/1,subscriber/12;color=#FF4700;display-name=DarthMinos;emote-only=1;emotes=1654895:11-20/1455566:84-94/300710661:116-126/34:138-146/1983580:0-9/1782816:38-48/1713825:159-169/1713813:186-198/300116344:200-210/300094809:22-29/161209:75-82/300764452:107-114/300354391:128-136/1713819:171-184/379085:31-36/300029735:62-73/1148689:96-105/624501:148-157/2126505:50-60;flags=;id=ea9fc2a7-7732-467d-9293-aca83f5cab21;mod=0;room-id=58491861;subscriber=1;tmi-sent-ts=1569256675845;turbo=0;user-id=58491861;user-type= :darthminos!darthminos@darthminos.tmi.twitch.tv PRIVMSG #darthminos :darthm7POG twooffHype bobdadGG sabDAB kneeka1Deep become1Goat become1Doggo kgtvHYPE missbe4Love itzopiHype momoriBD FightPepper PrideGive SwiftRage PurpleStar HolidayTree HolidayPresent HolidayCookie TwitchSings
+        tags = dict(item.split("=") for item in data.RawData.split(" ")[0].split(";"))
+        emotes = list(dict.fromkeys(d.split(':')[0] for d in tags.get('emotes').split('/')))
+
         return {
             "Name": str(data.UserName),
+            "Emotes": emotes,
             "Message": str(data.Message),
             "Count": 1 * int(ScriptSettings.ChatMultiplier),
+            "EmoteCount": 1 * int(ScriptSettings.ChatEmoteMultiplier),
+            "EmojiCount": 1 * int(ScriptSettings.ChatEmojiMultiplier),
             "TTL": int(ScriptSettings.GlobalObjectTTL if ScriptSettings.ChatObjectTTL == 0 else ScriptSettings.ChatObjectTTL)
         }
     else:
@@ -490,9 +504,11 @@ def SendChatEvent():
     payload = {
         "Message": {
             "Name": name,
+            "Emotes": [],
             "IsTest": True,
             "IsLive": False,
             "IsRepeat": False,
+            "Message": "Woot!!!!",
             "Count": ScriptSettings.ChatMultiplier * 1,
             "TTL": ScriptSettings.GlobalObjectTTL if ScriptSettings.ChatObjectTTL == 0 else ScriptSettings.ChatObjectTTL
         },
@@ -500,6 +516,87 @@ def SendChatEvent():
         "For": "twitch_account"
     }
     SendEventMessageEvent(payload)
+
+def SendTestEmoteEvent():
+    name = random.choice(TestAccounts)
+    payload = {
+        "Message": {
+            "Emotes": [
+                "300094809",
+                "300764452",
+                "1782816",
+                "1713819",
+                "624501",
+                "300116344",
+                "300354391",
+                "300710661",
+                "1713813",
+                "1148689",
+                "2126505",
+                "34",
+                "1654895",
+                "300029735",
+                "1983580",
+                "161209",
+                "1713825",
+                "379085",
+                "1455566"
+            ],
+            "Name": name,
+            "IsTest": True,
+            "IsLive": False,
+            "IsRepeat": False,
+            "Message": "Fake Message That Should Have All The Emotes",
+            "EmoteCount": ScriptSettings.ChatEmoteMultiplier * 1,
+            "EmojiCount": ScriptSettings.ChatEmojiMultiplier * 1,
+            "Count": ScriptSettings.ChatMultiplier * 1,
+            "TTL": ScriptSettings.GlobalObjectTTL if ScriptSettings.ChatObjectTTL == 0 else ScriptSettings.ChatObjectTTL
+        },
+        "Type": "chat",
+        "For": "twitch_account"
+    }
+    SendEventMessageEvent(payload)
+
+def SendTestEmojiEvent():
+    name = random.choice(TestAccounts)
+    payload = {
+        "Message": {
+            "Emotes": [
+                "300094809",
+                "300764452",
+                "1782816",
+                "1713819",
+                "624501",
+                "300116344",
+                "300354391",
+                "300710661",
+                "1713813",
+                "1148689",
+                "2126505",
+                "34",
+                "1654895",
+                "300029735",
+                "1983580",
+                "161209",
+                "1713825",
+                "379085",
+                "1455566"
+            ],
+            "Name": name,
+            "IsTest": True,
+            "IsLive": False,
+            "IsRepeat": False,
+            "Message": "🚲🏴‍☠️✈🍪🌮🍑🍔😎🔔🖱😘✂👀🎍💩🏆🏷🎟🤔👅🍆🐠♻👍✅💤😴😉",
+            "EmoteCount": ScriptSettings.ChatEmoteMultiplier * 1,
+            "EmojiCount": ScriptSettings.ChatEmojiMultiplier * 1,
+            "Count": ScriptSettings.ChatMultiplier * 1,
+            "TTL": ScriptSettings.GlobalObjectTTL if ScriptSettings.ChatObjectTTL == 0 else ScriptSettings.ChatObjectTTL
+        },
+        "Type": "chat",
+        "For": "twitch_account"
+    }
+    SendEventMessageEvent(payload)
+
 def SendTwitchFollowEvent():
     name = random.choice(TestAccounts)
     payload = {

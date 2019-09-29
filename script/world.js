@@ -1,7 +1,6 @@
 "use strict";
 var WorldCanvas = WorldCanvas || {};
 
-
 WorldCanvas.maps = {
 	none: function (res) { return []; },
 	plunko: function (res) {
@@ -21,6 +20,23 @@ WorldCanvas.maps = {
 		}
 
 		return items;
+	},
+	custom: function (map, res, cb) {
+		var fillColor = settings.DebugMap ? "#ff0000" : "transparent";
+
+		console.log(`loading custom map: ${map}`);
+		var data = window[`CUSTOM_MAP_${map}`] || { items: [] };
+		var items = [];
+		for (var x = 0; x < data.items.length; ++x) {
+			var i = data.items[x];
+			console.log(i);
+			items.push(WorldCanvas.Bodies.rectangle(i.location.x, i.location.y, i.size.width, i.size.height, { isStatic: true, group: 'map', name: i.name, render: { fillStyle: fillColor } }));
+		}
+		if (cb) {
+			return cb(items);
+		} else {
+			return;
+		}
 	}
 };
 
@@ -82,7 +98,11 @@ WorldCanvas.sprites = function () {
 	WorldCanvas.World.add(WorldCanvas.active.world, WorldCanvas.Map);
 	WorldCanvas.World.add(WorldCanvas.active.world, WorldCanvas.ItemsContainer);
 
-	WorldCanvas.loadMap(settings.ScreenMap);
+	if (settings.ScreenMap !== "custom") {
+		WorldCanvas.loadMap(settings.ScreenMap);
+	} else {
+		WorldCanvas.loadCustomMap(settings.ScreenMap);
+	}
 	// add mouse control
 	WorldCanvas.active.mouse = WorldCanvas.Mouse.create(WorldCanvas.active.render.canvas),
 		WorldCanvas.active.mouseConstraint = WorldCanvas.MouseConstraint.create(WorldCanvas.active.engine, {
@@ -127,6 +147,19 @@ WorldCanvas.loadMap = function (map) {
 	WorldCanvas.Composite.add(WorldCanvas.Map, mapItems);
 };
 
+
+WorldCanvas.loadCustomMap = function (map) {
+	var screenRes = {
+		width: settings.ScreenWidth || 1920,
+		height: settings.ScreenHeight || 1080
+	};
+	WorldCanvas.Composite.clear(WorldCanvas.Map, false, true);
+
+	WorldCanvas.maps.custom(map, screenRes, function (data) {
+		WorldCanvas.Composite.add(WorldCanvas.Map, data);
+	});
+};
+
 WorldCanvas.clear = function () {
 	WorldCanvas.Composite.clear(WorldCanvas.ItemsContainer, true, true);
 };
@@ -139,13 +172,18 @@ WorldCanvas.addObject = function (options) {
 
 	var count = options.count || 1;
 	var items = [];
+	var models = ["circle", "rectangle"];
+
 	for (var index = 0; index < count && (index < (options.max || 100)); ++index) {
 		var dropX = (Math.random() * (screenRes.width - 100)) + 50;
 		var dropY = -((Math.random() * screenRes.height) + 90);
 
-		var circleRadius = ((300 * options.scale) / 2) - 5;
-		var rectBound = ((300 * options.scale));
-		var model = settings.ItemModel || "circle";
+		var circleRadius = (((options.size || 300) * options.scale) / 2) - 5;
+		var rectBound = (((options.size || 300) * options.scale));
+		var model = (settings.ItemModel || "circle").toLowerCase();
+		if(model.toLowerCase() === "random"){
+			model = models[Math.floor(Math.random() * models.length)];
+		}
 		var itemOptions = {
 			friction: settings.ItemFriction / 1000 /*0.005*/,
 			frictionAir: settings.ItemAirFriction / 10000 /*0.0005*/,
