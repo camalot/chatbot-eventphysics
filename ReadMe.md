@@ -191,3 +191,37 @@ Click on the script in the list to bring up the configuration.
 [![](https://i.imgur.com/IVc133Ul.png)](https://i.imgur.com/IVc133U.png) 
 
 [![](https://i.imgur.com/R3VD0D8l.png)](https://i.imgur.com/R3VD0D8.png) 
+
+
+### INFORMATION  
+
+[![](https://i.imgur.com/ZyWocvRl.png)](https://i.imgur.com/ZyWocvR.png)  
+
+| ITEM | DESCRIPTION | 
+| ---- | ----------- | 
+| `DONATE` | If you want to support, you can donate | 
+| `FOLLOW ME ON TWITCH` | Opens a link to follow me on Twitch | 
+| `OPEN README` | Opens the link to this document | 
+| `CHECK FOR UPDATES` | Will Check if there are updates to the  Overlay Script. See below for more info. | 
+| `SAVE SETTINGS` | Save any changes to the EventPhysics Overlay settings | 
+
+
+## UPDATER
+
+> **NOTE:** You must launch from within Streamlabs Chatbot. 
+
+The application will open, and if there is an update it will tell you. You click on the `Download & Update` button. 
+
+> **NOTE:** Applying the update will close down Streamlabs Chatbot. It will reopen after the update is complete.
+
+[![](https://i.imgur.com/7VOsLXtl.png)](https://i.imgur.com/7VOsLXt.png)
+
+## OVERLAY SETUP IN OBS / SLOBS 
+
+- Add a new `Browser Source` in OBS / SLOBS  
+[![](https://i.imgur.com/TAMQkeql.png)](https://i.imgur.com/TAMQkeq.png)
+- Set as a `Local File` and choose the `overlay.html` in the `EventPhysics` script directory. You can easily get to the script directory location from right clicking on `EventPhysics` and choose `Open Script Folder`.
+- Set the `width` and `height` to the resolution of your `Base (Canvas) Resolution`. 
+- Add any additional custom CSS that you would like to add.
+- Check both `Shutdown source when not visible` and `Refresh browser when scene becomes active`.  
+[![](https://i.imgur.com/nouqPh0l.png)](https://i.imgur.com/nouqPh0.png)
