@@ -174,6 +174,17 @@ WorldCanvas.addObject = function (options) {
 	var items = [];
 	var models = ["circle", "rectangle"];
 
+	// if total items + count > settings.GlobalMaxItems, remove old items
+	var bodies = WorldCanvas.Composite.allBodies(WorldCanvas.ItemsContainer);
+	var maxDiff = (settings.GlobalMaxItems || 500) - (bodies.length + count);
+	if (maxDiff < 0) {
+		var offset = Math.abs(maxDiff);
+		for(var x = 0; x < offset; ++x) {
+			WorldCanvas.World.remove(WorldCanvas.ItemsContainer, bodies[x]);
+		}
+	}
+
+
 	for (var index = 0; index < count && (index < (options.max || 100)); ++index) {
 		var dropX = (Math.random() * (screenRes.width - 100)) + 50;
 		var dropY = -((Math.random() * screenRes.height) + 90);

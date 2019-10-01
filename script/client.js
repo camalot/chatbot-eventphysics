@@ -12,7 +12,7 @@ function connectWebsocket() {
 	//-------------------------------------------
 	//  Create WebSocket
 	//-------------------------------------------
-	let socket = new WebSocket("ws://127.0.0.1:3337/streamlabs");
+	let socket = new WebSocket(API_Socket);
 
 	//-------------------------------------------
 	//  Websocket Event: OnOpen
@@ -92,7 +92,6 @@ function connectWebsocket() {
 								var urls = [];
 								$.each(imgs, function (idx, item) {
 									var lu = $(item).attr("src");
-									console.log(lu);
 									var options = {
 										image: lu,
 										count: (eventData.Message.EmojiCount || 1),
@@ -109,7 +108,7 @@ function connectWebsocket() {
 						break;
 				}
 
-				var name = eventData.Message.FromId || eventData.Message.FromName || eventData.Message.Gifter || eventData.Message.Name
+				var name = eventData.Message.FromId || eventData.Message.FromName || eventData.Message.Gifter || eventData.Message.Name;
 				$.ajax({
 					type: 'GET',
 					url: 'https://decapi.me/twitch/avatar/' + name,
@@ -225,7 +224,7 @@ function validateSettings() {
 }
 
 function validateInit() {
-	// verify settings...
+	// verify sett ings...
 	let validatedSettings = validateSettings();
 
 	// Connect if API_Key is inserted

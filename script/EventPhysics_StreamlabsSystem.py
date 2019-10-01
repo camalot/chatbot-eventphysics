@@ -69,6 +69,7 @@ class Settings(object):
             self.ImageScale = 10
             self.ItemModel = "circle"
             self.MaxItems = 100
+            self.GlobalMaxItems = 500
             self.ScreenMap = "none"
             self.CustomMapName = ""
             self.HorizontalForce = 1.5
@@ -561,27 +562,7 @@ def SendTestEmojiEvent():
     name = random.choice(TestAccounts)
     payload = {
         "Message": {
-            "Emotes": [
-                "300094809",
-                "300764452",
-                "1782816",
-                "1713819",
-                "624501",
-                "300116344",
-                "300354391",
-                "300710661",
-                "1713813",
-                "1148689",
-                "2126505",
-                "34",
-                "1654895",
-                "300029735",
-                "1983580",
-                "161209",
-                "1713825",
-                "379085",
-                "1455566"
-            ],
+            "Emotes": [],
             "Name": name,
             "IsTest": True,
             "IsLive": False,
