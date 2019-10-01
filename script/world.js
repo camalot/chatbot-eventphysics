@@ -98,11 +98,11 @@ WorldCanvas.sprites = function () {
 	WorldCanvas.World.add(WorldCanvas.active.world, WorldCanvas.Map);
 	WorldCanvas.World.add(WorldCanvas.active.world, WorldCanvas.ItemsContainer);
 
-	if (settings.ScreenMap !== "custom") {
-		WorldCanvas.loadMap(settings.ScreenMap);
-	} else {
-		WorldCanvas.loadCustomMap(settings.ScreenMap);
-	}
+	// if (settings.ScreenMap !== "custom") {
+	// 	WorldCanvas.loadMap(settings.ScreenMap);
+	// } else {
+	// 	WorldCanvas.loadCustomMap(settings.ScreenMap);
+	// }
 	// add mouse control
 	WorldCanvas.active.mouse = WorldCanvas.Mouse.create(WorldCanvas.active.render.canvas),
 		WorldCanvas.active.mouseConstraint = WorldCanvas.MouseConstraint.create(WorldCanvas.active.engine, {
@@ -143,8 +143,8 @@ WorldCanvas.loadMap = function (map) {
 	};
 	WorldCanvas.Composite.clear(WorldCanvas.Map, false, true);
 
-	var mapItems = WorldCanvas.maps[map](screenRes);
-	WorldCanvas.Composite.add(WorldCanvas.Map, mapItems);
+	//var mapItems = WorldCanvas.maps[map](screenRes);
+	//WorldCanvas.Composite.add(WorldCanvas.Map, mapItems);
 };
 
 
@@ -155,9 +155,9 @@ WorldCanvas.loadCustomMap = function (map) {
 	};
 	WorldCanvas.Composite.clear(WorldCanvas.Map, false, true);
 
-	WorldCanvas.maps.custom(map, screenRes, function (data) {
-		WorldCanvas.Composite.add(WorldCanvas.Map, data);
-	});
+	// WorldCanvas.maps.custom(map, screenRes, function (data) {
+	// 	WorldCanvas.Composite.add(WorldCanvas.Map, data);
+	// });
 };
 
 WorldCanvas.clear = function () {
