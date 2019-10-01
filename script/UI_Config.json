@@ -141,21 +141,21 @@
 	"ItemFriction": {
 		"type": "slider",
 		"value": 3,
-		"min": -20,
+		"min": 0,
 		"max": 20,
 		"ticks": 0.1,
 		"label": "Item Friction",
-		"tooltip": "",
+		"tooltip": "Defines the friction of the item",
 		"group": "ADVANCED"
 	},
 	"ItemAirFriction": {
 		"type": "slider",
 		"value": 5,
-		"min": -20,
+		"min": 0,
 		"max": 20,
 		"ticks": 0.1,
 		"label": "Item Air Friction",
-		"tooltip": "",
+		"tooltip": "Defines the air resistance of the item.",
 		"group": "ADVANCED"
 	},
 	"ItemRestitution": {
@@ -165,7 +165,7 @@
 		"max": 100,
 		"ticks": 1,
 		"label": "Item Restitution",
-		"tooltip": "",
+		"tooltip": "Defines the elasticity of the item.",
 		"group": "ADVANCED"
 	},
 	"EnableChat": {
