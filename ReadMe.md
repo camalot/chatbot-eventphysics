@@ -30,7 +30,7 @@ A script + overlay for streamlabs chatbot and OBS/SLOBS/XSPLIT and twitch/mixer/
 
 ## INSTALL
 
-- Download the latest zip file from [Releases](https://github.com/camalot/chatbot-shoutout/releases/latest)
+- Download the latest zip file from [Releases](https://github.com/camalot/chatbot-eventphysics/releases/latest)
 - Right-click on the downloaded zip file and choose `Properties`
 - Click on `Unblock`  
 [![](https://i.imgur.com/vehSSn7l.png)](https://i.imgur.com/vehSSn7.png)  
