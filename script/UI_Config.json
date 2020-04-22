@@ -93,6 +93,14 @@
 		"wsevent": "EVENT_NONE",
 		"group": "GENERAL"
 	},
+	// "ResetAllDefault": {
+	// 	"type": "button",
+	// 	"label": "Reset Settings",
+	// 	"tooltip": "Resets all settings back to the defaults",
+	// 	"function": "ResetAllDefault",
+	// 	"wsevent": "EVENT_NONE",
+	// 	"group": "GENERAL"
+	// },
 	"OpenOverlayInBrowser": {
 		"type": "button",
 		"label": "Open Overlay In Browser",

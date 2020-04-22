@@ -440,6 +440,9 @@ def EventReceiverEvent(sender, args):
         })
     return
 
+def ResetAllDefault():
+
+    return
 
 def OpenOverlayInBrowser():
     os.startfile(os.path.realpath(os.path.join(os.path.dirname(__file__), "overlay.html")))
@@ -470,8 +473,9 @@ def OpenScriptUpdater():
                 "before": [],
                 "after": []
             },
-            "chatbot": os.path.join(chatbotRoot, "Streamlabs Chatbot.exe"),
-            "script": os.path.basename(os.path.dirname(os.path.realpath(__file__))),
+            "application": os.path.join(chatbotRoot, "Streamlabs Chatbot.exe"),
+            "processName": "Streamlabs Chatbot",
+            "folderName": os.path.basename(os.path.dirname(os.path.realpath(__file__))),
             "website": Website,
             "repository": {
                 "owner": repoVals[0],
