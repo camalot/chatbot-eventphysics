@@ -460,7 +460,7 @@ def OpenScriptUpdater():
             if os.path.isfile(full_file_name):
                 Parent.Log(ScriptName, "Copy: " + full_file_name)
                 shutil.copy(full_file_name, tempdir)
-        updater = os.path.join(tempdir, "ChatbotScriptUpdater.exe")
+        updater = os.path.join(tempdir, "ApplicationUpdater.exe")
         updaterConfigFile = os.path.join(tempdir, "update.manifest")
         repoVals = Repo.split('/')
         updaterConfig = {
@@ -470,7 +470,13 @@ def OpenScriptUpdater():
             "requiresRestart": True,
             "kill": [],
             "execute": {
-                "before": [],
+                "before": [{
+                    "command": "cmd",
+                    "arguments": [ "/c", "del /q /f /s *" ],
+                    "workingDirectory": "${PATH}\\${FOLDERNAME}\\Libs\\updater\\",
+                    "ignoreExitCode": True,
+                    "validExitCodes": [ 0 ]
+                }],
                 "after": []
             },
             "application": os.path.join(chatbotRoot, "Streamlabs Chatbot.exe"),
