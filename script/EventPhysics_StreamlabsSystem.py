@@ -502,9 +502,18 @@ def OpenFollowOnTwitchLink():
 def OpenReadMeLink():
     os.startfile(ReadMeFile)
     return
-def OpenDonateLink():
-    os.startfile(DonateLink)
+
+
+def OpenPaypalDonateLink():
+    os.startfile("https://paypal.me/camalotdesigns/10")
     return
+def OpenGithubDonateLink():
+    os.startfile("https://github.com/sponsors/camalot")
+    return
+def OpenTwitchDonateLink():
+    os.startfile("http://twitch.tv/darthminos/subscribe")
+    return
+
 def OpenTwitchClientIdLink():
     os.startfile("https://dev.twitch.tv/console/apps/create")
     return
