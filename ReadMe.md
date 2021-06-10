@@ -1,6 +1,8 @@
 <!-- https://imgur.com/a/2wtlAkL -->
 
 # CHATBOT-EVENTPHYSICS
+[![Event Physics Overlay](https://github.com/camalot/chatbot-eventphysics/actions/workflows/build.yml/badge.svg)](https://github.com/camalot/chatbot-eventphysics/actions/workflows/build.yml)
+
 
 A script + overlay for streamlabs chatbot and OBS/SLOBS/XSPLIT and twitch/mixer/youtube that "rains down" user profile images when events occur.
 
